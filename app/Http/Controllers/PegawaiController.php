@@ -26,13 +26,25 @@ public function index(Request $request)
         $query->where('status', $request->status);
     }
 
+    if ($request->filled('masa_kerja')) {
+        $query->whereRaw("CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', tanggal_masuk) AS INTEGER) = ?", [
+            $request->masa_kerja
+        ]);
+    }
+
     if ($request->filled('kelipatan')) {
-        $query->whereRaw("CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', tanggal_masuk) AS INTEGER) % ? = 0", [
+        $query->whereRaw("(CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', tanggal_masuk) AS INTEGER)) % ? = 0", [
             $request->kelipatan
         ]);
     }
 
-    $pegawais = $query->get();
+    // 👉 Duplikat query sebelum paginate untuk menghitung semua data status
+    $fullQuery = clone $query;
+    $jumlahAktif = (clone $fullQuery)->where('status', 'Aktif')->count();
+    $jumlahNonAktif = (clone $fullQuery)->where('status', 'Tidak Aktif')->count();
+
+    // 👉 Baru paginate untuk data yang ditampilkan
+    $pegawais = $query->paginate(2)->withQueryString();
 
     $genders = Pegawai::select('gender')->distinct()->pluck('gender');
     $statuses = Pegawai::select('status')->distinct()->pluck('status');
@@ -40,9 +52,6 @@ public function index(Request $request)
     $masaKerjaList = Pegawai::selectRaw("CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', tanggal_masuk) AS INTEGER) as masa_kerja")
         ->distinct()
         ->pluck('masa_kerja');
-
-    $jumlahAktif = $pegawais->where('status', 'Aktif')->count();
-    $jumlahNonAktif = $pegawais->where('status', 'Tidak Aktif')->count();
 
     return view('home', compact(
         'pegawais',
@@ -55,35 +64,36 @@ public function index(Request $request)
 }
 
 
-
     public function create()
     {
         return view('tambah');
     }
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'nama' => 'required|string|max:255',
-        'tanggal_lahir' => 'required|date',
-        'gender' => 'required|in:Male,Female',
-        'kontak' => 'required|string|max:20',
-        'email' => 'required|email|max:255',
-        'alamat' => 'required|string',
-        'tanggal_masuk' => 'required|date',
-        'golongan' => 'required|string',
-        'gaji' => 'required|numeric|min:0',
-        'status' => 'required|in:Aktif,Tidak Aktif',
-    ]);
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'gender' => 'required|in:Male,Female',
+            'kontak' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+            'alamat' => 'required|string',
+            'tanggal_masuk' => 'required|date',
+            'golongan' => 'required|string',
+            'gaji' => 'required|numeric|min:0',
+            'status' => 'required|in:Aktif,Tidak Aktif',
+        ]);
 
-    // lanjut simpan data
-    Pegawai::create([
-        ...$validated,
-        'masa_kerja' => 0, // atau hitung otomatis jika perlu
-    ]);
+        $tanggalMasuk = Carbon::parse($validated['tanggal_masuk']);
+        $masaKerja = now()->year - $tanggalMasuk->year;
 
-    return redirect()->route('pegawai.index')->with('success', 'Data berhasil ditambahkan');
-}
+        Pegawai::create([
+            ...$validated,
+            'masa_kerja' => $masaKerja,
+        ]);
+
+        return redirect()->route('pegawai.index')->with('success', 'Data berhasil ditambahkan');
+    }
 
     public function edit($id)
     {
@@ -111,7 +121,7 @@ public function index(Request $request)
             'status' => $request->status,
         ]);
 
-        return redirect()->route('home', [])->with('success', 'Data sudah tersimpan');
+        return redirect()->route('home')->with('success', 'Data sudah tersimpan');
     }
 
     public function destroy($id)
@@ -132,59 +142,57 @@ public function index(Request $request)
     }
 
     public function previewPdf(Request $request)
-{
-    $query = Pegawai::query();
+    {
+        $query = Pegawai::query();
 
-    if ($request->filled('search')) {
-        $query->where('nama', 'like', '%' . $request->search . '%');
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->gender);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('kelipatan')) {
+            $query->whereRaw("CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', tanggal_masuk) AS INTEGER) % ? = 0", [
+                $request->kelipatan
+            ]);
+        }
+
+        $pegawais = $query->get();
+
+        return view('preview-pdf', compact('pegawais'));
     }
-
-    if ($request->filled('gender')) {
-        $query->where('gender', $request->gender);
-    }
-
-    if ($request->filled('status')) {
-        $query->where('status', $request->status);
-    }
-
-    if ($request->filled('kelipatan')) {
-        $query->whereRaw("CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', tanggal_masuk) AS INTEGER) % ? = 0", [
-            $request->kelipatan
-        ]);
-    }
-
-    $pegawais = $query->get();
-
-    return view('preview-pdf', compact('pegawais'));
-}
-
 
     public function exportPdf(Request $request)
-{
-    $pegawais = Pegawai::query();
+    {
+        $pegawais = Pegawai::query();
 
-    if ($request->filled('search')) {
-        $pegawais->where('nama', 'like', '%' . $request->search . '%');
+        if ($request->filled('search')) {
+            $pegawais->where('nama', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('gender')) {
+            $pegawais->where('gender', $request->gender);
+        }
+
+        if ($request->filled('status')) {
+            $pegawais->where('status', $request->status);
+        }
+
+        if ($request->filled('kelipatan')) {
+            $pegawais->whereRaw("CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', tanggal_masuk) AS INTEGER) % ? = 0", [
+                $request->kelipatan
+            ]);
+        }
+
+        $pegawais = $pegawais->get();
+
+        $pdf = PDF::loadView('pdf', compact('pegawais'));
+        return $pdf->download('data-pegawai.pdf');
     }
-
-    if ($request->filled('gender')) {
-        $pegawais->where('gender', $request->gender);
-    }
-
-    if ($request->filled('status')) {
-        $pegawais->where('status', $request->status);
-    }
-
-    if ($request->filled('kelipatan')) {
-        $pegawais->whereRaw("CAST(strftime('%Y', 'now') AS INTEGER) - CAST(strftime('%Y', tanggal_masuk) AS INTEGER) % ? = 0", [
-            $request->kelipatan
-        ]);
-    }
-
-    $pegawais = $pegawais->get();
-
-    $pdf = \PDF::loadView('pdf', compact('pegawais'));
-    return $pdf->download('data-pegawai.pdf');
-}
-
 }
