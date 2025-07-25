@@ -4,85 +4,392 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Pegawai;
+use App\Models\Pegawai; // Pastikan Anda meng-import model Pegawai
+use Carbon\Carbon; // Untuk mengelola tanggal
 
 class PegawaiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * @return void
      */
-        public function run(): void
-        {
-            $data = [
-                [
-                    'nama' => 'Rina Kartika',
-                    'tanggal_lahir' => '1990-05-12',
-                    'gender' => 'female',
-                    'kontak' => '081234567890',
-                    'email' => 'rina.kartika@example.com',
-                    'alamat' => 'Jl. Anggrek No. 15, Majalengka',
-                    'tanggal_masuk' => '2015-04-10',
-                    'masa_kerja' => '9',
-                    'golongan' => 'c2',
-                    'gaji' => 4500000,
-                    'status' => 'aktif',
-                ],
-                [
-                    'nama' => 'Dedi Permana',
-                    'tanggal_lahir' => '1985-08-23',
-                    'gender' => 'male',
-                    'kontak' => '082233445566',
-                    'email' => 'dedi.permana@example.com',
-                    'alamat' => 'Jl. Melati No. 21, Panyingkiran',
-                    'tanggal_masuk' => '2010-07-01',
-                    'masa_kerja' => '14',
-                    'golongan' => 'd1',
-                    'gaji' => 7000000,
-                    'status' => 'aktif',
-                ],
-                [
-                    'nama' => 'Siti Aminah',
-                    'tanggal_lahir' => '1995-01-05',
-                    'gender' => 'female',
-                    'kontak' => '083144556677',
-                    'email' => 'siti.aminah@example.com',
-                    'alamat' => 'Jl. Kenanga No. 8, Cigasong',
-                    'tanggal_masuk' => '2020-02-20',
-                    'masa_kerja' => '4',
-                    'golongan' => 'b2',
-                    'gaji' => 3500000,
-                    'status' => 'aktif',
-                ],
-                [
-                    'nama' => 'Ahmad Fauzi',
-                    'tanggal_lahir' => '1992-11-30',
-                    'gender' => 'male',
-                    'kontak' => '081255667788',
-                    'email' => 'ahmad.fauzi@example.com',
-                    'alamat' => 'Jl. Merdeka No. 33, Kadipaten',
-                    'tanggal_masuk' => '2018-09-10',
-                    'masa_kerja' => '6',
-                    'golongan' => 'c1',
-                    'gaji' => 5000000,
-                    'status' => 'aktif',
-                ],
-                [
-                    'nama' => 'Lilis Suryani',
-                    'tanggal_lahir' => '1988-03-17',
-                    'gender' => 'female',
-                    'kontak' => '082198765432',
-                    'email' => 'lilis.suryani@example.com',
-                    'alamat' => 'Jl. Cendrawasih No. 10, Rajagaluh',
-                    'tanggal_masuk' => '2012-06-01',
-                    'masa_kerja' => '12',
-                    'golongan' => 'c3',
-                    'gaji' => 6200000,
-                    'status' => 'aktif',
-                ],
-            ];
+    public function run()
+    {
+        // Hapus semua data yang ada di tabel 'pegawais' sebelum menambahkan yang baru
+        Pegawai::truncate();
 
-            foreach ($data as $pegawai) {
-                Pegawai::create($pegawai);
+        // Data yang Anda berikan, dalam format string multi-baris
+        $rawData = "SRI RAHAYU D. S.Sos.	D1	K	1	KABAG	HUBLANG	PUSAT	1	3.903.130	 8.288.144 	HUBLANG	HUBLANGPUSAT	24	 4.488.600 	08-02-1974	1	1	 8.108.600 		700000	100%	700000
+NENENG SRI IDA W., S.E.	C4	K	1	KASUBAG	PEMASARAN & INFORMASI	PUSAT	1	3.519.557	 6.729.390 	HUBLANG	HUBLANGPUSAT	24	 4.047.490 	12-05-1975	1	1	 6.567.490 		700000	100%	700000
+Hj. ELI MILUWANGI, S.E.	C4	TK	1	KASUBAG	MSDM	PUSAT	1	3.744.772	 6.469.291 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 3.932.010 	20-05-1971	0	1	 6.312.010 		700000	100%	700000
+CECEP A. RIFAI,Ir	C4	K	2	KA SPI	KA SPI	PUSAT	1	3.206.962	 8.012.289 	SPI	SPIPUSAT	38	 3.848.354 	14-06-1970	1	1	 7.858.354 		700000	100%	700000
+ROLLAN ROSISENDRA, S.T.	C3	K	1	KABAG	TEKNIK	PUSAT	1	2.891.769	 7.078.555 	TRANDIST	TRANDISTPUSAT	2	 3.325.534 	29-11-1975	1	1	 6.945.534 		700000	100%	700000
+JADI HERMAWAN, S.T.	C3	K	2	KASUBAG	PENGADUAN & TAGIHAN	PUSAT	1	2.982.822	 6.382.562 	HUBLANG	HUBLANGPUSAT	24	 3.579.387 	09-09-1972	1	1	 6.239.387 		700000	100%	700000
+ADE YANTI HERMIATI, S.E.	C3	K	2	FUNGSIONAL SPI	FUNGSIONAL SPI ADM & KEU	PUSAT	1	3.273.639	 6.195.502 	SPI	SPIPUSAT	38	 3.928.367 	06-01-1978	1	1	 6.038.367 		700000	100%	700000
+AA HERDI AHMAD S., S.E.	C1	K	0	KABAG	ADM & KEUANGAN	PUSAT	1	2.425.386	 6.254.642 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.667.925 	04-09-1988	1	1	 6.147.925 		700000	100%	700000
+TOTO 	C1	K	1	FUNGSIONAL SPI	FUNGSIONAL SPI TEKNIK	PUSAT	1	3.108.201	 5.687.408 	SPI	SPIPUSAT	38	 3.574.431 	12-06-1970	1	1	 5.544.431 		700000	100%	700000
+LILIS MULYASARI	C1	TK	1	STAF	ADM UMUM & SARANA	PUSAT	1	3.307.068	 4.591.318 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 3.472.421 	08-10-1973	1	1	 4.452.421 		700000	100%	700000
+IIS KURNIA	C1	K	1	KASUBAG	PEMBUKUAN	PUSAT	1	3.307.068	 6.475.253 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 3.803.128 	31-03-1971	1	1	 6.323.128 		700000	100%	700000
+ENDI SUHENDI	C1	K	2	STAF	PEMASARAN & INFORMASI	PUSAT	1	3.307.068	 5.387.220 	HUBLANG	HUBLANGPUSAT	24	 3.968.481 	01-05-1970	1	1	 5.228.481 		700000	100%	700000
+JUJU JULIANTINI	C1	K	2	STAF	DISTRIBUSI	PUSAT	1	2.921.343	 4.905.836 	TRANDIST	TRANDISTPUSAT	2	 3.505.612 	20-08-1976	1	1	 4.765.612 		700000	100%	700000
+SEPTIAN SAMYA NUGRAHA, S.T.	C1	K	2	KASUBAG	LAHTA	PUSAT	1	2.351.270	 5.594.385 	HUBLANG	HUBLANGPUSAT	24	 2.821.524 	09-09-1989	1	1	 5.481.524 		700000	100%	700000
+YOGI BAHARI, S.A.P	C1	K	1	KASUBAG	KEUANGAN	PUSAT	1	2.425.386	 5.420.762 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.789.194 	27/02/1992	1	1	 5.309.194 		700000	100%	700000
+ADE JUNAEDI	C1	K	2	KASUBAG	ADM UMUM & SARANA	PUSAT	1	3.411.206	 6.917.185 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 4.093.447 	17-07-1973	1	1	 6.753.447 		700000	100%	700000
+NENI SUHERNI, S.E.	C1	K	1	STAF	PEMBUKUAN	PUSAT	1	2.351.270	 3.932.119 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.703.961 	17-02-1990	1	1	 3.823.961 		700000	100%	700000
+ADE TRIYANA	C1	K	2	KASUBAG	PERENCANAAN	PUSAT	1	3.307.068	 6.787.220 	TRANDIST	TRANDISTPUSAT	2	 3.968.481 	03-07-1971	1	1	 6.628.481 		700000	100%	700000
+DEWI ROSARIO LESTARI, S.E.	C1	K	2	STAF	KEUANGAN	PUSAT	1	2.425.386	 4.286.882 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.910.463 	25-09-1980	1	1	 4.170.463 		700000	100%	700000
+WIDI FIRLIANI, Amd.	C1	K	2	BENDAHARA	RUTIN	PUSAT	1	2.580.518	 5.180.487 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 3.096.622 	02-04-1985	1	1	 5.056.622 		700000	100%	700000
+AHMAD	B4	K	2	STAF	ADM UMUM & SARANA	PUSAT	1	2.326.894	 4.163.963 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.792.272 	02-02-1980	1	1	 4.052.272 		700000	100%	700000
+ADAM FAUZI GOJALI, S.E.	B4	K	1	STAF	ADM UMUM & SARANA	PUSAT	1	1.992.701	 3.503.270 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.291.606 	11-05-1987	1	1	 3.411.606 		700000	100%	700000
+FAHRUROJI, S.T.	B4	K	0	KASUBAG	PEMELIHARAAN	PUSAT	1	1.992.701	 4.659.650 	TRANDIST	TRANDISTPUSAT	2	 2.191.971 	19-08-1984	1	1	 4.571.971 		700000	100%	700000
+PANJI LINGGA WIHARJA	C1	K	2	STAF	PENGADUAN & TAGIHAN	PUSAT	1	2.661.804	 4.581.931 	HUBLANG	HUBLANGPUSAT	24	 3.194.164 	08-02-1983	1	1	 4.454.164 		700000	100%	700000
+LALA KOMALADEWI	C1	K	1	STAF	KEUANGAN	PUSAT	1	2.661.804	 4.303.517 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 3.061.074 	15-02-1984	1	1	 4.181.074 		700000	100%	700000
+PANJI KAMALLUDIN R SALOE, S.H.	B4	TK	0	STAF	PRODUKSI	PUSAT	1	1.931.849	 2.849.123 	SUMBER	SUMBERPUSAT	1	 1.931.849 	05-04-1994	1	1	 2.771.849 		700000	100%	700000
+YASIR HANIF INDRAPRAJA, S.T.	B4	K	1	STAF	PERENCANAAN	PUSAT	1	1.931.849	 3.430.491 	TRANDIST	TRANDISTPUSAT	2	 2.221.626 	26/10/1987	1	1	 3.341.626 		700000	100%	700000
+TRIA ADHIMU KURNIA, S.Si.	B4	K	2	KASUBAG	PRODUKSI	PUSAT	1	1.931.849	 5.070.947 	SUMBER	SUMBERPUSAT	1	 2.318.218 	24-12-1990	1	1	 4.978.218 		700000	100%	700000
+ANWAR ABDURRAHMAN, S.T.	B4	K	2	STAF	PEMELIHARAAN	PUSAT	1	1.931.849	 3.670.947 	TRANDIST	TRANDISTPUSAT	2	 2.318.218 	01-09-1986	1	1	 3.578.218 		700000	100%	700000
+WISNU FADILA	B3	K	1	STAF	LAHTA	PUSAT	1	1.853.431	 3.336.704 	HUBLANG	HUBLANGPUSAT	24	 2.131.446 		1	1	 3.251.446 		700000	100%	700000
+MOH IQBAL FAUZI	B3	K	2	STAF	GUDANG	PUSAT	1	2.034.195	 3.798.675 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.441.034 	02/01/1976	1	1	 3.701.034 		700000	100%	700000
+IZA SHOBIZA	B3	K	2	STAF	PEMASARAN & INFORMASI	PUSAT	1	2.034.195	 3.798.675 	HUBLANG	HUBLANGPUSAT	24	 2.441.034 	03-01-1975	1	1	 3.701.034 		700000	100%	700000
+DIKKY CHANRA DERMAWAN, S.E.	B4	K	2	STAF	MSDM	PUSAT	1	1.931.849	 3.670.947 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.318.218 	24-07-1990	1	1	 3.578.218 		700000	100%	700000
+IVAN IVANA HANGGADITYA	B2	TK	0	STAF	PRODUKSI	PUSAT	1	1.834.253	 2.747.623 	SUMBER	SUMBERPUSAT	1	 1.834.253 	06-10-1979	1	1	 2.674.253 		700000	100%	700000
+GUGUN GUMELAR	B2	K	1	STAF	PERENCANAAN	PUSAT	1	1.834.253	 3.313.766 	TRANDIST	TRANDISTPUSAT	2	 2.109.390 	12-11-1992	1	1	 3.229.390 		700000	100%	700000
+EDI SUDRAJAT	B1	K	2	STAF	PRODUKSI	PUSAT	1	1.302.645	 2.633.700 	SUMBER	SUMBERPUSAT	1	 1.563.174 	20-06-1979	1	1	 2.571.174 		560000	100%	560000
+RINA NURAENA	B1	K	2	STAF	PEMBUKUAN	PUSAT	1	1.706.096	 3.389.208 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 2.047.315 		1	1	 3.307.315 		700000	100%	700000
+ALDY DWICAHYA, S.E	B1	TK	0	STAF	PEMBUKUAN	PUSAT	1	1.654.027	 2.560.188 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 1.654.027 		1	1	 2.494.027 		700000	100%	700000
+DIMAS PRAMESETIA, S.T	B1	K	1	STAF	PERENCANAAN	PUSAT	1	1.654.027	 3.098.216 	TRANDIST	TRANDISTPUSAT	2	 1.902.131 		1	1	 3.022.131 		700000	100%	700000
+JENITA NURMALA	B1	K	1	STAF	MSDM	PUSAT	1	1.628.306	 3.067.454 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 1.872.552 		1	1	 2.992.552 		700000	100%	700000
+PRASETYO ADHIUTAMA	B1	K	0	STAF	PENGOLAHAN DATA	PUSAT	1	1.628.306	 2.842.782 	HUBLANG	HUBLANGPUSAT	24	 1.791.136 		1	1	 2.771.136 		700000	100%	700000
+LILI HAMBALI	A4	K	2	STAF	PRODUKSI	PUSAT	1	1.636.461	 3.302.304 	SUMBER	SUMBERPUSAT	1	 1.963.753 	26-02-1977	1	1	 3.223.753 		700000	100%	700000
+ANDANG SUHENDAR	A4	K	2	STAF	PRODUKSI	PUSAT	1	1.636.461	 3.302.304 	SUMBER	SUMBERPUSAT	1	 1.963.753 	14-08-1979	1	1	 3.223.753 		700000	100%	700000
+ADI RISMAYANTO	B1	TK	0	STAF	ADM UMUM & SARANA	PUSAT	1	1.302.645	 2.026.750 	ADM/KEUANGAN	ADM/KEUANGANPUSAT	13	 1.302.645 		1	1	 1.974.645 		560000	100%	560000
+ENO C. JUARSIH	C1	K	2	KAUR	ADM & KEUANGAN	MAJALENGKA	2	3.108.201	 5.989.035 	ADM/KEUANGAN	ADM/KEUANGANMAJALENGKA	14	 3.729.841 	27-05-1975	1	1	 5.839.841 		700000	100%	700000
+ACHMAD SAHIDIN	C1	K	1	KAUR	DISTRIBUSI & PENYAMBUNGAN	MAJALENGKA	2	3.108.201	 5.687.408 	TRANDIST	TRANDISTMAJALENGKA	3	 3.574.431 	13/03/1973	1	1	 5.544.431 		700000	100%	700000
+YAYAT SUPRIATNA	C1	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	MAJALENGKA	2	3.108.201	 5.139.035 	TRANDIST	TRANDISTMAJALENGKA	3	 3.729.841 	18-03-1972	1	1	 4.989.841 		700000	100%	700000
+ADI HARTONO	C1	K	2	KACAB	KACAB	MAJALENGKA	2	3.307.068	 7.387.220 	ADM/KEUANGAN	ADM/KEUANGANMAJALENGKA	14	 3.968.481 	05-01-1972	1	1	 7.228.481 		700000	100%	700000
+INDRA SUPRIATNO, S.I.P.	B4	K	1	STAF	ADM & KEUANGAN	MAJALENGKA	2	1.992.701	 3.503.270 	ADM/KEUANGAN	ADM/KEUANGANMAJALENGKA	14	 2.291.606 	12/04/1992	1	1	 3.411.606 		700000	100%	700000
+AFRIZAL IQBALI	B2	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	MAJALENGKA	2	1.778.240	 3.479.244 	TRANDIST	TRANDISTMAJALENGKA	3	 2.133.888 	05-09-1996	1	1	 3.393.888 		700000	100%	700000
+REZA ADITYA SANTOSO	B1	TK	0	STAF	BACA METER	MAJALENGKA	2	1.654.027	 2.560.188 	HUBLANG	HUBLANGMAJALENGKA	25	 1.654.027 		1	1	 2.494.027 		700000	100%	700000
+MUHAMMAD IQBAL RAMADHAN	B1	TK	0	STAF	BACA METER	MAJALENGKA	2	1.628.306	 2.533.438 	HUBLANG	HUBLANGMAJALENGKA	25	 1.628.306 		1	1	 2.468.306 		700000	100%	700000
+YAYAN SUHERMAYANA	C1	K	2	KAUNIT	KAUNIT	CIGASONG	3	3.108.201	 6.189.035 	ADM/KEUANGAN	ADM/KEUANGANCIGASONG	15	 3.729.841 	14-11-1973	1	1	 6.039.841 		700000	100%	700000
+WAWAN RIDWAN	C1	K	1	STAF	DISTRIBUSI & PENYAMBUNGAN	CIGASONG	3	3.013.293	 4.723.899 	TRANDIST	TRANDISTCIGASONG	4	3.465.287 	18-12-1974	1	1	 4.585.287 		700000	100%	700000
+AHMAD TOHIDIN	C1	K	2	STAF	ADM & KEUANGAN	CIGASONG	3	2.921.343	 4.905.836 	ADM/KEUANGAN	ADM/KEUANGANCIGASONG	15	 3.505.612 	13-09-1973	1	1	 4.765.612 		700000	100%	700000
+GILANG NUGRAHA P., S.Ip	B4	K	1	STAF	ADM & KEUANGAN	CIGASONG	3	1.992.701	 3.503.270 	ADM/KEUANGAN	ADM/KEUANGANCIGASONG	15	 2.291.606 	12-04-1992	1	1	 3.411.606 		700000	100%	700000
+PASHA ANUGRAH SANDIANSAH	B4	K	1	STAF	DISTRIBUSI & PENYAMBUNGAN	CIGASONG	3	1.931.849	 3.430.491 	TRANDIST	TRANDISTCIGASONG	4	 2.221.626 	07-01-1995	1	1	 3.341.626 		700000	100%	700000
+TANDRA TRIYANTO	B4	K	1	STAF	BACA METER	CIGASONG	3	1.931.849	 3.430.491 	HUBLANG	HUBLANGCIGASONG	26	 2.221.626 	22-01-1987	1	1	 3.341.626 		700000	100%	700000
+ENOK YULIANTI	B2	K	2	STAF	KASIR	CIGASONG	3	1.778.240	 3.479.244 	ADM/KEUANGAN	ADM/KEUANGANCIGASONG	15	 2.133.888 	26-06-1991	1	1	 3.393.888 		700000	100%	700000
+MAMAN HERMAWAN,S.Sos.	C4	K	1	KACAB	KACAB	KADIPATEN	4	3.412.102	 7.200.874 	ADM/KEUANGAN	ADM/KEUANGANKADIPATEN	16	 3.923.918 	01-09-1970	1	1	 7.043.918 		700000	100%	700000
+SUBARNAS	C2	K	1	KAUR	TEKNIK	KADIPATEN	4	3.341.751	 5.966.734 	TRANDIST	TRANDISTKADIPATEN	5	 3.843.013 	01-09-1972	1	1	 5.813.013 		700000	100%	700000
+NANO PRIATNO, S.E.	C2	TK	1	STAF	OPERATOR	KADIPATEN	4	2.951.904	 4.203.479 	PENGOLAHAN	PENGOLAHANKADIPATEN	35	 3.099.499 	15-12-1971	1	1	 4.079.499 		700000	100%	700000
+MOHAMAD RAHMAT JS	C1	K	2	STAF	OPERATOR	KADIPAPEN	4	3.206.066	 5.261.170 	PENGOLAHAN	PENGOLAHANKADIPATEN	35	 3.847.279 	05-04-1971	1	1	 5.107.279 		700000	100%	700000
+RIA INTAN SARI	C1	K	0	STAF	KASIR	KADIPATEN	4	3.307.068	 4.763.285 	ADM/KEUANGAN	ADM/KEUANGANKADIPATEN	16	 3.637.774 	03-10-1971	1	1	 4.617.774 		700000	100%	700000
+US US SUKMANA	C1	K	1	STAF	OPERATOR	KADIPATEN	4	3.307.068	 5.075.253 	PENGOLAHAN	PENGOLAHANKADIPATEN	35	 3.803.128 	06-05-1969	1	1	 4.923.128 		700000	100%	700000
+RIFKI PRIAMBODO	C1	K	0	STAF	OPERATOR	KADIPATEN	4	3.307.068	 4.763.285 	PENGOLAHAN	PENGOLAHANKADIPATEN	35	 3.637.774 	11-01-1970	1	1	 4.617.774 		700000	100%	700000
+EMI SUHAEMI	C1	TK	2	STAF	KASIR	KADIPATEN	4	3.307.068	 4.903.285 	ADM/KEUANGAN	ADM/KEUANGANKADIPATEN	16	 3.637.774 	02-08-1973	1	1	 4.757.774 		700000	100%	700000
+TINTIN USWATUN HASANAH, A.Md.	C1	K	2	KAUR	ADM & KEUANGAN	KADIPATEN	4	2.501.742	 5.232.174 	ADM/KEUANGAN	ADM/KEUANGANKADIPATEN	16	 3.002.091 	20-04-1982	1	1	 5.112.091 		700000	100%	700000
+DIDI SURYADI	B4	K	0	STAF	OPERATOR	KADIPATEN	4	2.891.052	 4.287.363 	PENGOLAHAN	PENGOLAHANKADIPATEN	35	 3.180.157 	12/07/1969	1	1	 4.160.157 		700000	100%	700000
+IFAN RIFANDI	B3	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	KADIPATEN	4	1.972.088	 3.721.166 	TRANDIST	TRANDISTKADIPATEN	5	 2.366.506 	15-12-1988	1	1	 3.626.506 		700000	100%	700000
+AEF SAEFUDIN ROMADHON	B3	TK	0	STAF	BACA METER	KADIPATEN	4	1.853.431	 2.767.568 	HUBLANG	HUBLANGKADIPATEN	27	 1.853.431 		1	1	 2.693.431 		700000	100%	700000
+ARIEF ISKANDAR RAKHMAN	B2	K	2	STAF	OPERATOR	KADIPATEN	4	1.834.253	 3.549.147 	PENGOLAHAN	PENGOLAHANKADIPATEN	35	 2.201.103 	12/04/1992	1	1	 3.461.103 		700000	100%	700000
+ENDANG RUSMANA	B2	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	KADIPATEN	4	1.834.253	 3.549.147 	TRANDIST	TRANDISTKADIPATEN	5	 2.201.103 	16-09-1984	1	1	 3.461.103 		700000	100%	700000
+IKAH ATIKAH	B1	TK	2	STAF	ADM & KEUANGAN	KADIPATEN	4	2.255.287	 3.700.049 	ADM/KEUANGAN	ADM/KEUANGANKADIPATEN	16	 2.480.816 	25-07-1976	1	1	 3.600.816 		700000	100%	700000
+TEMMY KHIBRAN PRATMA	B1	K	2	STAF	BACA METER	KADIPATEN	4	1.628.306	 3.292.126 	HUBLANG	HUBLANGKADIPATEN	27	 1.953.967 		1	1	 3.213.967 		700000	100%	700000
+MURY MAHENDRAYANA	B1	TK	0	STAF	BACA METER	KADIPATEN	4	1.628.306	 2.533.438 	HUBLANG	HUBLANGKADIPATEN	27	 1.628.306 		1	1	 2.468.306 		700000	100%	700000
+NANA SANTANA, S. Sos.	C4	K	1	KAUNIT	KAUNIT	RAJAGALUH	5	3.862.712	 6.789.803 	ADM/KEUANGAN	ADM/KEUANGANRAJAGALUH	17	 4.442.118 	21-09-1970	1	1	 6.612.118 		700000	100%	700000
+RAHMAN TAUFIK	B4	K	0	STAF	DISTRIBUSI & PENYAMBUNGAN	RAJAGALUH	5	2.326.894	 3.641.966 	TRANDIST	TRANDISTRAJAGALUH	6	 2.559.583 	16-09-1984	1	1	 3.539.583 		700000	100%	700000
+BUDI SUCIPTO	B4	K	2	STAF	ADM & KEUANGAN	RAJAGALUH	5	2.255.915	 4.075.381 	ADM/KEUANGAN	ADM/KEUANGANRAJAGALUH	17	 2.707.098 	21-03-1985	1	1	 3.967.098 		700000	100%	700000
+DADANG SUHENDAR	B3	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	RAJAGALUH	5	1.972.088	 3.721.166 	TRANDIST	TRANDISTRAJAGALUH	6	 2.366.506 	17-02-1990	1	1	 3.626.506 		700000	100%	700000
+CINDYA MEITA ANANTASARI	B4	K	1	STAF	KASIR	RAJAGALUH	5	1.931.849	 3.430.491 	ADM/KEUANGAN	ADM/KEUANGANRAJAGALUH	17	 2.221.626 	16-05-1995	1	1	 3.341.626 		700000	100%	700000
+TOTO PARTAWIJAYA, S.E.	C3	K	1	KACAB	KACAB	SUKAHAJI	6	3.592.776	 7.416.960 	ADM/KEUANGAN	ADM/KEUANGANSUKAHAJI	18	 4.131.693 	25-04-1972	1	1	 7.251.693 		700000	100%	700000
+CUCU RATNASARI, S.E.	C3	K	2	KAUR	ADM & KEUANGAN	SUKAHAJI	6	3.273.639	 6.195.502 	ADM/KEUANGAN	ADM/KEUANGANSUKAHAJI	18	 3.928.367 	25-05-1977	1	1	 6.038.367 		700000	100%	700000
+YOGA PRATAMA, S. Sos.	C2	K	2	STAF	ADM & KEUANGAN	SUKAHAJI	6	2.951.904	 4.943.976 	ADM/KEUANGAN	ADM/KEUANGANSUKAHAJI	18	 3.542.284 	26-10-1976	1	1	 4.802.284 		700000	100%	700000
+MOH FAJRI PRIYANTO, S.T.	C1	K	1	STAF	DISTRIBUSI & PENYAMBUNGAN	SUKAHAJI	6	2.425.386	 4.020.762 	TRANDIST	TRANDISTSUKAHAJI	7	 2.789.194 	04/01/1979	1	1	 3.909.194 		700000	100%	700000
+ERNA JUNARA	C1	K	1	STAF	ADM & KEUANGAN	SUKAHAJI	6	2.661.804	 4.303.517 	ADM/KEUANGAN	ADM/KEUANGANSUKAHAJI	18	 3.061.074 	02-03-1969	1	1	 4.181.074 		700000	100%	700000
+SUGANDA	B3	K	1	KAUR	TEKNIK	SUKAHAJI	6	2.375.288	 4.810.845 	TRANDIST	TRANDISTSUKAHAJI	7	 2.731.582 	12-02-1979	1	1	 4.701.582 		700000	100%	700000
+BUDY NURICHSYAN	B1	K	1	STAF	BACA METER	SUKAHAJI	6	1.706.096	 3.160.491 	HUBLANG	HUBLANGSUKAHAJI	29	 1.962.010 	0	1	1	 3.082.010 		700000	100%	700000
+NIA FITRIANA FORTUNA,Spd	B1	K	2	STAF	KASIR	SUKAHAJI	6	1.654.027	 3.324.225 	ADM/KEUANGAN	ADM/KEUANGANSUKAHAJI	18	 1.984.832 		1	1	 3.244.832 		700000	100%	700000
+ABIZAR YANUAR ADZANU	B1	TK	0	STAF	BACA METER	SUKAHAJI	6	1.628.306	 2.533.438 	HUBLANG	HUBLANGSUKAHAJI	29	 1.628.306 		1	1	 2.468.306 		700000	100%	700000
+AGUS MULYANA, S.Sos.	C4	K	0	KACAB	KACAB	TALAGA	7	3.630.417	 7.133.197 	ADM/KEUANGAN	ADM/KEUANGANTALAGA	19	 3.993.458 	22-08-1972	1	1	 6.973.458 		700000	100%	700000
+AANG, S.I.P	C3	K	2	STAF	KASIR	TALAGA	7	3.273.639	 5.345.502 	ADM/KEUANGAN	ADM/KEUANGANTALAGA	19	 3.928.367 	30-07-1975	1	1	 5.188.367 		700000	100%	700000
+ADJID HALIM	C1	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	TALAGA	7	2.745.598	 4.686.507 	TRANDIST	TRANDISTTALAGA	8	 3.294.718 	02-08-1984	1	1	 4.554.718 		700000	100%	700000
+YONO	B4	K	2	KAUR	TEKNIK	TALAGA	7	2.400.203	 5.105.453 	TRANDIST	TRANDISTTALAGA	8	 2.880.243 	26-04-1984	1	1	 4.990.243 		700000	100%	700000
+WAWAN SUHENDI	B4	K	1	STAF	ADM & KEUANGAN	TALAGA	7	2.255.915	 3.818.074 	ADM/KEUANGAN	ADM/KEUANGANTALAGA	19	 2.594.302 	01-05-1970	1	1	 3.714.302 		700000	100%	700000
+ENDI HENDRIYAN, A.Md.	B3	K	2	KAUR	ADM & KEUANGAN	TALAGA	7	2.034.195	 4.648.675 	ADM/KEUANGAN	ADM/KEUANGANTALAGA	19	 2.441.034 	01/01/1980	1	1	 4.551.034 		700000	100%	700000
+DEVI VIAN NURVIANTI, S.E.	B4	TK	0	STAF	KASIR	TALAGA	7	1.931.849	 2.849.123 	ADM/KEUANGAN	ADM/KEUANGANTALAGA	19	 1.931.849 	29-05-1993	1	1	 2.771.849 		700000	100%	700000
+DIAN PRIATNA	B2	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	TALAGA	7	1.778.240	 3.479.244 	TRANDIST	TRANDISTTALAGA	8	 2.133.888 	12-07-1984	1	1	 3.393.888 		700000	100%	700000
+BUBIN ALBAR	B2	K	0	STAF	DISTRIBUSI & PENYAMBUNGAN	TALAGA	7	1.778.240	 3.014.307 	TRANDIST	TRANDISTTALAGA	8	 1.956.064 	24/02/1994	1	1	 2.936.064 		700000	100%	700000
+GUGUN GUNAWAN	B2	K	0	STAF	BACA METER	TALAGA	7	1.778.240	 3.014.307 	HUBLANG	HUBLANGTALAGA	30	 1.956.064 	11-09-1995	1	1	 2.936.064 		700000	100%	700000
+OKKA SUPARDAN	B4	TK	0	KAUNIT	KAUNIT	USAHA TERMINAL AIR	8	2.255.915	 4.236.151 	ADM/KEUANGAN	ADM/KEUANGANUSAHA TERMINAL AIR	20	 2.255.915 	06-05-1969	1	1	 4.145.915 		700000	100%	700000
+UMAR SA'ID	B4	K	2	STAF	ADM & KEUANGAN	USAHA TERMINAL AIR	8	2.255.915	 4.075.381 	ADM/KEUANGAN	ADM/KEUANGANUSAHA TERMINAL AIR	20	 2.707.098 	23-02-1988	1	1	 3.967.098 		700000	100%	700000
+MUMU SUDARMU	C1	K	1	STAF	DISTRIBUSI & PENYAMBUNGAN	PANYINGKIRAN	9	3.013.293	 4.723.899 	TRANDIST	TRANDISTPANYINGKIRAN	10	 3.465.287 	10-01-1975	1	1	 4.585.287 		700000	100%	700000
+DUDI BUDIARTO	C1	K	2	KAUNIT	KAUNIT	PANYINGKIRAN	9	2.921.343	 5.955.836 	ADM/KEUANGAN	ADM/KEUANGANPANYINGKIRAN	21	 3.505.612 	26-01-1977	1	1	 5.815.612 		700000	100%	700000
+UCUP RUKMANA	C1	K	1	STAF	DISTRIBUSI & PENYAMBUNGAN	PANYINGKIRAN	9	3.307.068	 5.075.253 	TRANDIST	TRANDISTPANYINGKIRAN	10	 3.803.128 	07-12-1972	1	1	 4.923.128 		700000	100%	700000
+LILIS SURYANAH	C1	K	1	STAF	ADM & KEUANGAN	PANYINGKIRAN	9	3.013.293	 4.723.899 	ADM/KEUANGAN	ADM/KEUANGANPANYINGKIRAN	21	 3.465.287 	27-12-1976	1	1	 4.585.287 		700000	100%	700000
+ADE RAHMAN HANIFUDIN	B1	K	1	STAF	BACA METER	PANYINGKIRAN	9	1.654.027	 3.098.216 	HUBLANG	HUBLANGPANYINGKIRAN	32	 1.902.131 		1	1	 3.022.131 		700000	100%	700000
+SHINTA ANNISA	B1	TK	0	STAF	KASIR	PANYINGKIRAN	9	1.628.306	 2.533.438 	ADM/KEUANGAN	ADM/KEUANGANPANYINGKIRAN	21	 1.628.306 		1	1	 2.468.306 		700000	100%	700000
+SUHERLAN	C1	K	0	KAUNIT	KAUNIT	SUKARAJA	10	3.013.293	 5.477.207 	ADM/KEUANGAN	ADM/KEUANGANSUKARAJA	22	 3.314.623 	16-04-1969	1	1	 5.344.623 		700000	100%	700000
+YANTO	B2	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	SUKARAJA	10	1.834.253	 3.549.147 	TRANDIST	TRANDISTSUKARAJA	11	 2.201.103 	18-09-1979	1	1	 3.461.103 		700000	100%	700000
+ANDRI YULIONO	B1	TK	0	STAF	KASIR	SUKARAJA	10	1.628.306	 2.533.438 	ADM/KEUANGAN	ADM/KEUANGANSUKARAJA	22	 1.628.306 		1	1	 2.468.306 		700000	100%	700000
+ASIK FAHDI H, ST	C3	K	2	KACAB	KACAB	JATITUJUH	11	2.891.769	 6.868.927 	ADM/KEUANGAN	ADM/KEUANGANJATITUJUH	23	 3.470.122 	26-03-1981	1	1	 6.730.122 		700000	100%	700000
+WAHONO SUSILO	C1	K	2	KAUR	ADM & KEUANGAN	JATITUJUH	11	2.425.386	 5.136.882 	ADM/KEUANGAN	ADM/KEUANGANJATITUJUH	23	 2.910.463 	23/08/1989	1	1	 5.020.463 		700000	100%	700000
+HENDRA GUNAWAN	B4	K	2	STAF	OPERATOR	JATITUJUH	11	2.326.894	 4.163.963 	PENGOLAHAN	PENGOLAHANJATITUJUH	36	 2.792.272 	23-05-1977	1	1	 4.052.272 		700000	100%	700000
+GUSMANA	B3	K	2	STAF	BACA METER	JATITUJUH	11	2.034.195	 3.798.675 	HUBLANG	HUBLANGJATITUJUH	34	 2.441.034 	10/08/1984	1	1	 3.701.034 		700000	100%	700000
+HENDRIYANTO	B3	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	JATITUJUH	11	2.034.195	 3.798.675 	TRANDIST	TRANDISTJATITUJUH	12	 2.441.034 	25/04/1984	1	1	 3.701.034 		700000	100%	700000
+ANGELA ROSVIANTI	B3	K	1	STAF	ADM & KEUANGAN	JATITUJUH	11	2.034.195	 3.552.897 	ADM/KEUANGAN	ADM/KEUANGANJATITUJUH	23	 2.339.324 	28/12/1988	1	1	 3.459.324 		700000	100%	700000
+SITI ROHAYATI	B3	K	2	STAF	KASIR	JATITUJUH	11	2.034.195	 3.798.675 	ADM/KEUANGAN	ADM/KEUANGANJATITUJUH	23	 2.441.034 	16-09-1988	1	1	 3.701.034 		700000	100%	700000
+YAYAN SOPYAN	B3	TK	1	STAF	OPERATOR	JATITUJUH	11	2.034.195	 3.201.341 	PENGOLAHAN	PENGOLAHANJATITUJUH	36	 2.135.904 	03-08-1987	1	1	 3.115.904 		700000	100%	700000
+DUDI SUHARWANTO	B3	K	2	KAUR	TEKNIK	JATITUJUH	11	2.034.195	 4.648.675 	TRANDIST	TRANDISTJATITUJUH	12	 2.441.034 	04/12/1987	1	1	 4.551.034 		700000	100%	700000
+LILI SUHALI, S.E.	B4	K	1	STAF	OPERATOR	JATITUJUH	11	1.931.849	 3.430.491 	PENGOLAHAN	PENGOLAHANJATITUJUH	36	 2.221.626 	13-03-1990	1	1	 3.341.626 		700000	100%	700000
+WAWAN HERMAWAN	B2	K	2	STAF	OPERATOR	JATITUJUH	11	1.834.253	 3.549.147 	PENGOLAHAN	PENGOLAHANJATITUJUH	36	 2.201.103 	26/12/1989	1	1	 3.461.103 		700000	100%	700000
+ANGGA RAHMAWAN	B2	K	1	STAF	OPERATOR	JATITUJUH	11	1.778.240	 3.246.775 	PENGOLAHAN	PENGOLAHANJATITUJUH	36	 2.044.976 	23-02-1995	1	1	 3.164.976 		700000	100%	700000
+SITI RUBAIAH	B2	K	2	STAF	KASIR	JATITUJUH	11	1.834.253	 3.549.147 	ADM/KEUANGAN	ADM/KEUANGANJATITUJUH	23	 2.201.103 	18-06-1992	1	1	 3.461.103 		700000	100%	700000
+ARIEF HADDAD	B1	K	1	STAF	BACA METER	JATITUJUH	11	1.654.027	 3.098.216 	HUBLANG	HUBLANGJATITUJUH	34	 1.902.131 		1	1	 3.022.131 		700000	100%	700000
+ADJI NOER REISMADJI S.	B2	K	0	STAF	DISTRIBUSI & PENYAMBUNGAN	JATITUJUH	11	1.778.240	 3.014.307 	TRANDIST	TRANDISTJATITUJUH	12	 1.956.064 	11-08-1986	1	1	 2.936.064 		700000	100%	700000
+ATIN LISNAWATI	B2	K	1	STAF	KASIR	JATITUJUH	11	1.778.240	 3.246.775 	ADM/KEUANGAN	ADM/KEUANGANJATITUJUH	23	 2.044.976 	17-12-1990	1	1	 3.164.976 		700000	100%	700000
+DIAN RAMADHAN	B2	K	2	STAF	DISTRIBUSI & PENYAMBUNGAN	JATITUJUH	11	1.778.240	 3.479.244 	TRANDIST	TRANDISTJATITUJUH	12	 2.133.888 	17-04-1990	1	1	 3.393.888 		700000	100%	700000
+PEDRAG MEGATAUFIQ RAHMAN	B2	K	0	STAF	OPERATOR	JATITUJUH	11	1.778.240	 3.014.307 	PENGOLAHAN	PENGOLAHANJATITUJUH	36	 1.956.064 	03-05-1994	1	1	 2.936.064 		700000	100%	700000
+FANJI SULISTIO	B2	K	0	STAF	OPERATOR	JATITUJUH	11	1.778.240	 3.014.307 	PENGOLAHAN	PENGOLAHANJATITUJUH	36	 1.956.064 	09-05-1992	1	1	 2.936.064 		700000	100%	700000
+YORI KARSONO	B1	K	1	STAF	BACA METER	JATITUJUH	11	1.654.027	 3.098.216 	HUBLANG	HUBLANGJATITUJUH	34	 1.902.131 	0	1	1	 3.022.131 		700000	100%	700000
+AEF PUJI	B1	TK	0	STAF	BACA METER	JATITUJUH	11	1.706.096	 2.614.340 	HUBLANG	HUBLANGJATITUJUH	34	 1.706.096 	0	1	1	 2.546.096 		700000	100%	700000
+GIBRAL THORIQ	B1	K	1	STAF	OPERATOR	JATITUJUH	11	1.628.306	 3.067.454 	PENGOLAHAN	PENGOLAHANJATITUJUH	36	 1.872.552 		1	1	 2.992.552 		700000	100%	700000";
+
+        $lines = explode("\n", $rawData);
+        $nipCounter = 1;
+
+        // Gender mapping helper (simplified)
+        $genderMap = [
+            'SRI' => 'Female', 'NENENG' => 'Female', 'Hj.' => 'Female', 'LILIS' => 'Female', 'IIS' => 'Female',
+            'JUJU' => 'Female', 'NENI' => 'Female', 'ADE' => 'Female', 'DEWI' => 'Female', 'WIDI' => 'Female',
+            'LALA' => 'Female', 'ENOK' => 'Female', 'IZA' => 'Female', 'IVAN' => 'Male', // Assuming Ivan is male
+            'RINA' => 'Female', 'JENITA' => 'Female', 'ANGELA' => 'Female', 'SITI' => 'Female', 'ENOK' => 'Female',
+            'TINTIN' => 'Female', 'IKAH' => 'Female', 'CINDYA' => 'Female', 'CUCU' => 'Female', 'ERNA' => 'Female',
+            'NIA' => 'Female', 'DEVI' => 'Female', 'SHINTA' => 'Female', 'ATIN' => 'Female', 'LILIS' => 'Female',
+            // Default to Male if not found in female names
+        ];
+
+        foreach ($lines as $line) {
+            $line = trim($line); // Hapus spasi di awal/akhir baris
+            if (empty($line)) {
+                continue; // Lewati baris kosong
+            }
+
+            // Pisahkan kolom berdasarkan tab
+            $parts = explode("\t", $line);
+
+            // Pastikan baris memiliki jumlah kolom yang diharapkan
+            // Berdasarkan analisis data yang diberikan, ada 21 kolom per baris
+            if (count($parts) < 21) {
+                // Jika baris tidak memiliki cukup kolom, mungkin itu baris header atau formatnya berbeda.
+                // Anda bisa log error atau melewatkannya.
+                error_log("Baris tidak memiliki cukup kolom (diharapkan 21): " . $line);
+                continue;
+            }
+
+            // Ekstrak data dan lakukan pembersihan/transformasi
+            $nama = trim($parts[0]);
+            $golonganRaw = trim($parts[1]); // Ambil golongan mentah
+            $keluargaStatusRaw = trim($parts[2]);
+            $keluargaAnak = (int) trim($parts[3]);
+            $jabatanRaw = trim($parts[4]); // Ambil jabatan mentah
+            $bagianRaw = trim($parts[5]); // Ambil bagian mentah
+            $unitKerjaRaw = trim($parts[6]); // Ambil unit_kerja mentah
+            $gajiRaw = trim($parts[8]); // Kolom Gaji Pokok
+            $klasifikasiRaw = trim($parts[10]); // Ambil klasifikasi mentah
+            $tanggalLahirRaw = trim($parts[14]); // Kolom Tanggal Lahir
+
+            // --- Transformasi Data ---
+            // 1. Nomor Induk: Dibuat secara berurutan
+            $nomorInduk = 'NIP' . str_pad($nipCounter++, 4, '0', STR_PAD_LEFT);
+
+            // 2. Gender: Ditebak berdasarkan nama depan atau default 'Male'
+            $firstName = explode(' ', $nama)[0];
+            $gender = 'Male'; // Default
+            foreach ($genderMap as $prefix => $mappedGender) {
+                if (str_starts_with(strtoupper($firstName), strtoupper($prefix))) {
+                    $gender = $mappedGender;
+                    break;
+                }
+            }
+            // Penyesuaian khusus jika nama depan tidak cukup spesifik atau ada typo
+            if (str_contains(strtoupper($nama), 'LILIS') || str_contains(strtoupper($nama), 'NENENG') || str_contains(strtoupper($nama), 'HJ. ELI')) {
+                $gender = 'Female';
+            }
+            if (str_contains(strtoupper($nama), 'CECEP') || str_contains(strtoupper($nama), 'ROLLAN') || str_contains(strtoupper($nama), 'JADI')) {
+                $gender = 'Male';
+            }
+
+
+            // 3. Status Keluarga: 'K' menjadi 'Menikah', 'TK' menjadi 'Belum Menikah'
+            $keluargaStatus = '';
+            if (strtoupper($keluargaStatusRaw) === 'K') {
+                $keluargaStatus = 'Menikah';
+            } elseif (strtoupper($keluargaStatusRaw) === 'TK') {
+                $keluargaStatus = 'Belum Menikah';
+            } else {
+                $keluargaStatus = 'Lainnya'; // Default jika ada nilai lain
+            }
+
+            // 4. Gaji: Menghapus titik pemisah ribuan dan mengkonversi ke integer
+            $gaji = (int) str_replace('.', '', $gajiRaw);
+
+            // 5. Tanggal Lahir: Menangani format DD-MM-YYYY atau DD/MM/YYYY. Jika kosong/invalid, gunakan default.
+            $tanggalLahir = '1900-01-01'; // Default date if parsing fails or raw data is empty
+            if (!empty($tanggalLahirRaw)) {
+                try {
+                    $tanggalLahir = Carbon::createFromFormat('d-m-Y', $tanggalLahirRaw)->format('Y-m-d');
+                } catch (\Exception $e) {
+                    try {
+                        $tanggalLahir = Carbon::createFromFormat('d/m/Y', $tanggalLahirRaw)->format('Y-m-d');
+                    } catch (\Exception $e) {
+                        // Jika kedua format gagal, tanggal default '1900-01-01' sudah diset di awal
+                        error_log("Format tanggal lahir tidak valid untuk '" . $tanggalLahirRaw . "'. Menggunakan default '1900-01-01'.");
+                    }
+                }
+            }
+
+            // 6. Tanggal Masuk: Default '2020-01-01' (tidak ada di data mentah)
+            $tanggalMasuk = '2020-01-01';
+
+            // 7. Masa Kerja: Dihitung dari tanggal_masuk hingga tanggal saat ini
+            $masaKerja = 0;
+            if ($tanggalMasuk) {
+                $masaKerja = Carbon::parse($tanggalMasuk)->diffInYears(Carbon::now());
+            }
+
+            // 8. Pendidikan: Default string kosong (tidak ada di data mentah)
+            $pendidikan = '';
+
+            // 9. Status: Default 'Aktif' (tidak ada di data mentah)
+            $status = 'Aktif';
+
+            // Buat record Pegawai, pastikan semua kolom yang relevan di-uppercase
+            Pegawai::create([
+                'nama' => $nama,
+                'nomor_induk' => $nomorInduk,
+                'tanggal_lahir' => $tanggalLahir,
+                'gender' => $gender,
+                'jabatan' => $this->transformCasing($jabatanRaw, 'jabatan'),
+                'bagian' => $this->transformCasing($bagianRaw, 'bagian'),
+                'unit_kerja' => $this->transformCasing($unitKerjaRaw, 'unit_kerja'),
+                'pendidikan' => $pendidikan,
+                'klasifikasi' => $this->transformCasing($klasifikasiRaw, 'klasifikasi'),
+                'keluarga_status' => $keluargaStatus,
+                'keluarga_anak' => $keluargaAnak,
+                'tanggal_masuk' => $tanggalMasuk,
+                'masa_kerja' => (int)$masaKerja,
+                'golongan' => strtoupper($golonganRaw), // Golongan tetap uppercase
+                'gaji' => $gaji,
+                'status' => $status,
+            ]);
+        }
+    }
+
+    /**
+     * Helper function to transform casing based on PegawaiController's fixed options.
+     *
+     * @param string $value The raw value from the seeder data.
+     * @param string $type The type of field (e.g., 'jabatan', 'bagian').
+     * @return string The transformed value with matching casing.
+     */
+    private function transformCasing($value, $type)
+    {
+        $value = trim($value);
+        $valueUpper = strtoupper($value);
+
+        // Define the exact casings as they appear in PegawaiController's options
+        // This mapping ensures the seeder outputs data with the exact casing expected by the controller.
+        $controllerOptionsMapping = [
+            'klasifikasi' => [
+                'ADM/KEUANGAN' => 'ADM/Keuangan',
+                'HUBLANG' => 'Hublang',
+                'PENGOLAHAN' => 'Pengolahan',
+                'SPI' => 'SPI',
+                'SUMBER' => 'Sumber',
+                'TRANDIST' => 'Trandist',
+            ],
+            'unit_kerja' => [
+                'DIREKSI' => 'Direksi',
+                'DEWAS' => 'Dewas',
+                'CIGASONG' => 'Cigasong',
+                'JATITUJUH' => 'Jatitujuh',
+                'KADIPATEN' => 'Kadipaten',
+                'MAJALENGKA' => 'Majalengka',
+                'PANYINGKIRAN' => 'Panyingkiran',
+                'PUSAT' => 'Pusat',
+                'RAJAGALUH' => 'Rajagaluh',
+                'SUKAHAJI' => 'Sukahaji',
+                'SUKARAJA' => 'Sukaraja',
+                'TALAGA' => 'Talaga',
+                'USAHA TERMINAL AIR' => 'Usaha Terminal Air',
+            ],
+            'jabatan' => [
+                'DIREKTUR' => 'Direktur',
+                'DEWAN PENGAWAS' => 'Dewan Pengawas',
+                'BENDAHARA' => 'Bendahara',
+                'FUNGSIONAL SPI' => 'Fungsional SPI',
+                'KA SPI' => 'Ka SPI',
+                'KABAG' => 'Kabag',
+                'KACAB' => 'Kacab',
+                'KASUBAG' => 'Kasubag',
+                'KAUNIT' => 'Kaunit',
+                'KAUR' => 'Kaur',
+                'STAF' => 'Staf',
+                'KONTRAK' => 'Kontrak',
+            ],
+            'bagian' => [
+                'DIRUT' => 'Dirut',
+                'DEWAS' => 'Dewas',
+                'ADMIN & KEUANGAN' => 'Admin & Keuangan',
+                'ADM UMUM & SARANA' => 'ADM Umum & Sarana',
+                'BACA METER' => 'Baca Meter',
+                'DISTRIBUSI' => 'Distribusi',
+                'DISTRIBUSI & PENYAMBUNGAN' => 'Distribusi & Penyambungan',
+                'FUNGSIONAL SPI ADM & KEUANGAN' => 'Fungsional SPI ADM & Keuangan',
+                'FUNGSIONAL SPI TEKNIK' => 'Fungsional SPI Teknik',
+                'GUDANG' => 'Gudang',
+                'HUBLANG' => 'Hublang',
+                'KA SPI' => 'Ka SPI',
+                'KACAB' => 'Kacab',
+                'KASIR' => 'Kasir',
+                'KAUNIT' => 'Kaunit',
+                'KEU' => 'Keu',
+                'LAHTA' => 'Lahta',
+                'MSDM' => 'MSDM',
+                'OPERATOR' => 'Operator',
+                'PEMASARAN & INFORMASI' => 'Pemasaran & Informasi',
+                'PEMBUKUAN' => 'Pembukuan',
+                'PEMELIHARAAN' => 'Pemeliharaan',
+                'PENGADUAN & TAGIHAN' => 'Pengaduan & Tagihan',
+                'PENGOLAHAN DATA' => 'Pengolahan Data',
+                'PERENCANAAN' => 'Perencanaan',
+                'PRODUKSI' => 'Produksi',
+                'RUTIN TEKNIK' => 'Rutin Teknik',
+                'KOORDINATOR SATPAM PUSAT' => 'Koordinator Satpam Pusat',
+                'SATPAM' => 'Satpam',
+                'STAF BACA METER' => 'Staf Baca Meter',
+                'STAF DISTRIBUSI & PENYAMBUNGAN' => 'Staf Distribusi & Penyambungan',
+                'STAF KASIR' => 'Staf Kasir',
+                'STAF PEMBUKUAN & KEU' => 'Staf Pembukuan & Keu',
+                'STAF PRODUKSI PUSAT' => 'Staf Produksi Pusat',
+                'STAF PRODUKSI (OPERATOR)' => 'Staf Produksi (Operator)',
+                'STAF IKK DAWUAN' => 'Staf IKK Dawuan',
+                'STAF PRODUKSI' => 'Staf Produksi',
+                'STAF UMUM' => 'Staf Umum',
+            ],
+        ];
+
+        // Find a match ignoring case, and return the matched option's casing
+        if (isset($controllerOptionsMapping[$type])) {
+            foreach ($controllerOptionsMapping[$type] as $upperKey => $exactCasing) {
+                if ($upperKey === $valueUpper) {
+                    return $exactCasing; // Return the option with its original casing from the controller's list
+                }
             }
         }
+
+        // Fallback: If not found in the explicit list, try ucwords(strtolower())
+        // This handles cases where raw data might have variations not in the fixed list
+        return ucwords(strtolower($value));
+    }
 }

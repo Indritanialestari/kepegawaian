@@ -9,15 +9,20 @@ class Pegawai extends Model
 {
     use HasFactory;
 
-    protected $table = 'pegawais'; // sesuaikan dengan nama tabel
+    protected $table = 'pegawais';
 
     protected $fillable = [
         'nama',
         'tanggal_lahir',
         'gender',
-        'kontak',
-        'email',
-        'alamat',
+        'nomor_induk',
+        'jabatan',
+        'bagian',
+        'unit_kerja',
+        'pendidikan',
+        'klasifikasi',
+        'keluarga_status',
+        'keluarga_anak',
         'tanggal_masuk',
         'masa_kerja',
         'golongan',
@@ -25,5 +30,3 @@ class Pegawai extends Model
         'status',
     ];
 }
-
-
