@@ -78,7 +78,7 @@
                 <div>
                     <label for="pendidikan" class="block text-sm font-medium text-gray-700">Pendidikan</label>
                     <input type="text" name="pendidikan" id="pendidikan" value="{{ old('pendidikan') }}"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"> {{-- Hapus 'required' di sini --}}
                     @error('pendidikan')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 

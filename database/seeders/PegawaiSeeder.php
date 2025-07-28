@@ -18,6 +18,140 @@ class PegawaiSeeder extends Seeder
     {
         // Hapus semua data yang ada di tabel 'pegawais' sebelum menambahkan yang baru
         Pegawai::truncate();
+                $nipAndEntryDateData = [
+            'SRI RAHAYU D. S.Sos.' => ['nip' => '04 92 056', 'tanggal_masuk' => '10/04/1992'],
+            'NENENG SRI IDA W., S.E.' => ['nip' => '09 93 088', 'tanggal_masuk' => '01/09/1993'],
+            'Hj. ELI MILUWANGI, S.E.' => ['nip' => '08 07 141', 'tanggal_masuk' => '02/01/2006'],
+            'CECEP A. RIFAI,Ir' => ['nip' => '11 98 104', 'tanggal_masuk' => '01/07/1996'],
+            'ROLLAN ROSISENDRA, S.T.' => ['nip' => '09 93 087', 'tanggal_masuk' => '01/09/1993'],
+            'JADI HERMAWAN, S.T.' => ['nip' => '11 08 147', 'tanggal_masuk' => '07/08/2006'],
+            'ADE YANTI HERMIATI, S.E.' => ['nip' => '02 10 151', 'tanggal_masuk' => '01/05/2009'],
+            'AA HERDI AHMAD S., S.E.' => ['nip' => '05 93 064', 'tanggal_masuk' => '01/05/1993'],
+            'TOTO' => ['nip' => '09 93 090', 'tanggal_masuk' => '01/09/1993'],
+            'LILIS MULYASARI' => ['nip' => '11 99 115', 'tanggal_masuk' => '12/01/1995'],
+            'IIS KURNIA' => ['nip' => '01 03 128', 'tanggal_masuk' => '18/09/2002'],
+            'ENDI SUHENDI' => ['nip' => '11 99 117', 'tanggal_masuk' => '01/09/1997'],
+            'JUJU JULIANTINI' => ['nip' => '04 92 057', 'tanggal_masuk' => '10/04/1992'],
+            'SEPTIAN SAMYA NUGRAHA, S.T.' => ['nip' => '07 93 071', 'tanggal_masuk' => '01/07/1993'],
+            'YOGI BAHARI, S.A.P' => ['nip' => '07 93 075', 'tanggal_masuk' => '01/07/1993'],
+            'ADE JUNAEDI' => ['nip' => '05 93 066', 'tanggal_masuk' => '01/05/1993'],
+            'NENI SUHERNI, S.E.' => ['nip' => '05 93 067', 'tanggal_masuk' => '01/05/1993'],
+            'ADE TRIYANA' => ['nip' => '05 93 068', 'tanggal_masuk' => '01/05/1993'],
+            'DEWI ROSARIO LESTARI, S.E.' => ['nip' => '07 93 083', 'tanggal_masuk' => '01/07/1993'],
+            'WIDI FIRLIANI, Amd.' => ['nip' => '11 03 130', 'tanggal_masuk' => '25/11/2000'],
+            'AHMAD' => ['nip' => '09 93 084', 'tanggal_masuk' => '01/09/1993'],
+            'ADAM FAUZI GOJALI, S.E.' => ['nip' => '07 97 099', 'tanggal_masuk' => '01/06/1994'],
+            'FAHRUROJI, S.T.' => ['nip' => '05 93 063', 'tanggal_masuk' => '01/05/1993'],
+            'PANJI LINGGA WIHARJA' => ['nip' => '07 97 097', 'tanggal_masuk' => '01/06/1995'],
+            'LALA KOMALADEWI' => ['nip' => '05 94 092', 'tanggal_masuk' => '01/05/1993'],
+            'PANJI KAMALLUDIN R SALOE, S.H.' => ['nip' => '11 04 134', 'tanggal_masuk' => '01/10/2003'],
+            'YASIR HANIF INDRAPRAJA, S.T.' => ['nip' => '09 93 094', 'tanggal_masuk' => '01/04/1994'],
+            'TRIA ADHIMU KURNIA, S.Si.' => ['nip' => '12 97 102', 'tanggal_masuk' => '01/09/1993'],
+            'ANWAR ABDURRAHMAN, S.T.' => ['nip' => '04 92 055', 'tanggal_masuk' => '10/04/1992'],
+            'WISNU FADILA' => ['nip' => '07 93 081', 'tanggal_masuk' => '01/07/1993'],
+            'MOH IQBAL FAUZI' => ['nip' => '07 02 127', 'tanggal_masuk' => '01/06/2001'],
+            'IZA SHOBIZA' => ['nip' => '07 93 070', 'tanggal_masuk' => '01/05/1993'],
+            'DIKKY CHANRA DERMAWAN, S.E.' => ['nip' => '11 96 096', 'tanggal_masuk' => '04/10/1995'],
+            'IVAN IVANA HANGGADITYA' => ['nip' => '07 93 073', 'tanggal_masuk' => '01/07/1993'],
+            'GUGUN GUMELAR' => ['nip' => '02 99 109', 'tanggal_masuk' => '01/07/1996'],
+            'EDI SUDRAJAT' => ['nip' => '02 99 110', 'tanggal_masuk' => '01/07/1996'],
+            'RINA NURAENA' => ['nip' => '07 97 098', 'tanggal_masuk' => '01/06/1995'],
+            'ALDY DWICAHYA, S.E' => ['nip' => '08 97 100', 'tanggal_masuk' => '01/01/1995'],
+            'DIMAS PRAMESETIA, S.T' => ['nip' => '11 98 106', 'tanggal_masuk' => '18/11/1996'],
+            'JENITA NURMALA' => ['nip' => '07 06 138', 'tanggal_masuk' => '01/04/2005'],
+            'PRASETYO ADHIUTAMA' => ['nip' => '01 04 131', 'tanggal_masuk' => '04/12/2002'],
+            'LILI HAMBALI' => ['nip' => '01 13 154', 'tanggal_masuk' => '14/01/2013'],
+            'ANDANG SUHENDAR' => ['nip' => '12 00 122', 'tanggal_masuk' => '01/10/1996'],
+            'ADI RISMAYANTO' => ['nip' => '12 01 123', 'tanggal_masuk' => '18/11/1996'],
+            'ENO C. JUARSIH' => ['nip' => '07 03 129', 'tanggal_masuk' => '05/11/2001'],
+            'ACHMAD SAHIDIN' => ['nip' => '06 00 120', 'tanggal_masuk' => '12/10/1996'],
+            'YAYAT SUPRIATNA' => ['nip' => '07 01 125', 'tanggal_masuk' => '01/09/1997'],
+            'ADI HARTONO' => ['nip' => '01 15 172', 'tanggal_masuk' => '05/01/2015'],
+            'INDRA SUPRIATNO, S.I.P.' => ['nip' => '04 08 144', 'tanggal_masuk' => '22/01/2007'],
+            'AFRIZAL IQBALI' => ['nip' => '09 99 112', 'tanggal_masuk' => '01/10/1996'],
+            'REZA ADITYA SANTOSO' => ['nip' => '11 99 118', 'tanggal_masuk' => '01/10/1996'],
+            'MUHAMMAD IQBAL RAMADHAN' => ['nip' => '01 15 173', 'tanggal_masuk' => '05/01/2015'],
+            'YAYAN SUHERMAYANA' => ['nip' => '07 18 178', 'tanggal_masuk' => '01/07/2018'],
+            'WAWAN RIDWAN' => ['nip' => '07 18 177', 'tanggal_masuk' => '01/07/2018'],
+            'AHMAD TOHIDIN' => ['nip' => '05 08 146', 'tanggal_masuk' => '01/06/2006'],
+            'GILANG NUGRAHA P., S.Ip' => ['nip' => '01 14 164', 'tanggal_masuk' => '02/01/2014'],
+            'PASHA ANUGRAH SANDIANSAH' => ['nip' => '11 07 143', 'tanggal_masuk' => '13/11/2006'],
+            'TANDRA TRIYANTO' => ['nip' => '01 15 170', 'tanggal_masuk' => '05/01/2015'],
+            'ENOK YULIANTI' => ['nip' => '07 12 152', 'tanggal_masuk' => '05/07/2012'],
+            'MAMAN HERMAWAN,S.Sos.' => ['nip' => '08 07 140', 'tanggal_masuk' => '02/01/2006'],
+            'SUBARNAS' => ['nip' => '08 07 139', 'tanggal_masuk' => '20/02/2007'],
+            'NANO PRIATNO, S.E.' => ['nip' => '01 13 155', 'tanggal_masuk' => '14/01/2013'],
+            'MOHAMAD RAHMAT JS' => ['nip' => '09 04 133', 'tanggal_masuk' => '01/09/2003'],
+            'RIA INTAN SARI' => ['nip' => '07 19 188', 'tanggal_masuk' => '01/07/2019'],
+            'RIFKI PRIAMBODO' => ['nip' => '01 05 135', 'tanggal_masuk' => '13/01/2004'],
+            'EMI SUHAEMI' => ['nip' => '07 13 158', 'tanggal_masuk' => '01/07/2013'],
+            'TINTIN USWATUN HASANAH, A.Md.' => ['nip' => '07 18 184', 'tanggal_masuk' => '01/07/2018'],
+            'DIDI SURYADI' => ['nip' => '04 08 145', 'tanggal_masuk' => '12/07/2007'],
+            'IFAN RIFANDI' => ['nip' => '07 18 175', 'tanggal_masuk' => '01/07/2018'],
+            'AEF SAEFUDIN ROMADHON' => ['nip' => '03 09 149', 'tanggal_masuk' => '09/07/2007'],
+            'ARIEF ISKANDAR RAKHMAN' => ['nip' => '03 09 146', 'tanggal_masuk' => '19/11/2007'],
+            'ENDANG RUSMANA' => ['nip' => '07 20 191', 'tanggal_masuk' => '01/07/2020'],
+            'IKAH ATIKAH' => ['nip' => '07 20 200', 'tanggal_masuk' => '01/07/2020'],
+            'TEMMY KHIBRAN PRATMA' => ['nip' => '07 20 207', 'tanggal_masuk' => '01/07/2020'],
+            'MURY MAHENDRAYANA' => ['nip' => '07 13 157', 'tanggal_masuk' => '01/07/2013'],
+            'NANA SANTANA, S. Sos.' => ['nip' => '07 18 187', 'tanggal_masuk' => '01/07/2018'],
+            'RAHMAN TAUFIK' => ['nip' => '07 14 166', 'tanggal_masuk' => '01/07/2014'],
+            'BUDI SUCIPTO' => ['nip' => '07 20 202', 'tanggal_masuk' => '01/07/2020'],
+            'DADANG SUHENDAR' => ['nip' => '02 10 150', 'tanggal_masuk' => '21/05/2008'],
+            'CINDYA MEITA ANANTASARI' => ['nip' => '01 21 210', 'tanggal_masuk' => '01/01/2021'],
+            'TOTO PARTAWIJAYA, S.E.' => ['nip' => '07 14 165', 'tanggal_masuk' => '01/07/2014'],
+            'CUCU RATNASARI, S.E.' => ['nip' => '07 18 180', 'tanggal_masuk' => '01/07/2018'],
+            'YOGA PRATAMA, S. Sos.' => ['nip' => '07 18 185', 'tanggal_masuk' => '01/07/2018'],
+            'MOH FAJRI PRIYANTO, S.T.' => ['nip' => '01 15 169', 'tanggal_masuk' => '05/01/2015'],
+            'ERNA JUNARA' => ['nip' => '01 14 160', 'tanggal_masuk' => '02/01/2014'],
+            'SUGANDA' => ['nip' => '01 21 211', 'tanggal_masuk' => '01/01/2021'],
+            'BUDY NURICHSYAN' => ['nip' => '01 14 159', 'tanggal_masuk' => '02/01/2014'],
+            'NIA FITRIANA FORTUNA,Spd' => ['nip' => '01 15 174', 'tanggal_masuk' => '05/01/2015'],
+            'ABIZAR YANUAR ADZANU' => ['nip' => '07 18 179', 'tanggal_masuk' => '01/07/2018'],
+            'AGUS MULYANA, S.Sos.' => ['nip' => '01 15 171', 'tanggal_masuk' => '05/01/2015'],
+            'AANG, S.I.P' => ['nip' => '07 20 198', 'tanggal_masuk' => '01/07/2020'],
+            'ADJID HALIM' => ['nip' => '07 20 196', 'tanggal_masuk' => '01/07/2020'],
+            'YONO' => ['nip' => '07 14 167', 'tanggal_masuk' => '01/07/2014'],
+            'WAWAN SUHENDI' => ['nip' => '01 24 231', 'tanggal_masuk' => '01/01/2024'],
+            'ENDI HENDRIYAN, A.Md.' => ['nip' => '07 20 199', 'tanggal_masuk' => '01/07/2020'],
+            'DEVI VIAN NURVIANTI, S.E.' => ['nip' => '01 14 161', 'tanggal_masuk' => '02/01/2014'],
+            'DIAN PRIATNA' => ['nip' => '01 14 163', 'tanggal_masuk' => '02/01/2014'],
+            'BUBIN ALBAR' => ['nip' => '07 23 222', 'tanggal_masuk' => '01/07/2023'],
+            'GUGUN GUNAWAN' => ['nip' => '07 20 208', 'tanggal_masuk' => '01/07/2020'],
+            'OKKA SUPARDAN' => ['nip' => '07 20 201', 'tanggal_masuk' => '01/07/2020'],
+            'UMAR SA\'ID' => ['nip' => '01 14 162', 'tanggal_masuk' => '02/01/2014'],
+            'MUMU SUDARMU' => ['nip' => '07 20 203', 'tanggal_masuk' => '01/07/2020'],
+            'DUDI BUDIARTO' => ['nip' => '01 21 212', 'tanggal_masuk' => '01/01/2021'],
+            'UCUP RUKMANA' => ['nip' => '01 13 156', 'tanggal_masuk' => '14/01/2013'],
+            'LILIS SURYANAH' => ['nip' => '07 18 176', 'tanggal_masuk' => '01/07/2018'],
+            'ADE RAHMAN HANIFUDIN' => ['nip' => '01 21 213', 'tanggal_masuk' => '01/01/2021'],
+            'SHINTA ANNISA' => ['nip' => '07 20 205', 'tanggal_masuk' => '01/07/2020'],
+            'SUHERLAN' => ['nip' => '07 18 186', 'tanggal_masuk' => '01/07/2018'],
+            'YANTO' => ['nip' => '07 18 183', 'tanggal_masuk' => '01/07/2018'],
+            'ANDRI YULIONO' => ['nip' => '01 21 214', 'tanggal_masuk' => '01/01/2021'],
+            'ASIK FAHDI H, ST' => ['nip' => '01 24 223', 'tanggal_masuk' => '01/01/2024'],
+            'WAHONO SUSILO' => ['nip' => '07 20 195', 'tanggal_masuk' => '01/07/2020'],
+            'HENDRA GUNAWAN' => ['nip' => '01 24 228', 'tanggal_masuk' => '01/01/2024'],
+            'GUSMANA' => ['nip' => '07 23 219', 'tanggal_masuk' => '01/07/2023'],
+            'HENDRIYANTO' => ['nip' => '07 20 190', 'tanggal_masuk' => '01/07/2020'],
+            'ANGELA ROSVIANTI' => ['nip' => '07 20 206', 'tanggal_masuk' => '01/07/2020'],
+            'SITI ROHAYATI' => ['nip' => '07 18 182', 'tanggal_masuk' => '01/07/2018'],
+            'YAYAN SOPYAN' => ['nip' => '01 24 224', 'tanggal_masuk' => '01/01/2024'],
+            'DUDI SUHARWANTO' => ['nip' => '01 21 215', 'tanggal_masuk' => '01/01/2021'],
+            'LILI SUHALI, S.E.' => ['nip' => '01 24 226', 'tanggal_masuk' => '01/01/2024'],
+            'WAWAN HERMAWAN' => ['nip' => '07 20 209', 'tanggal_masuk' => '01/07/2020'],
+            'ANGGA RAHMAWAN' => ['nip' => '07 18 181', 'tanggal_masuk' => '01/07/2018'],
+            'SITI RUBAIAH' => ['nip' => '07 20 194', 'tanggal_masuk' => '01/07/2020'],
+            'ARIEF HADDAD' => ['nip' => '07 23 220', 'tanggal_masuk' => '01/07/2023'],
+            'ADJI NOER REISMADJI S.' => ['nip' => '07 20 197', 'tanggal_masuk' => '01/07/2020'],
+            'ATIN LISNAWATI' => ['nip' => '01 24 230', 'tanggal_masuk' => '01/01/2024'],
+            'DIAN RAMADHAN' => ['nip' => '07 20 204', 'tanggal_masuk' => '01/07/2020'],
+            'PEDRAG MEGATAUFIQ RAHMAN' => ['nip' => '07 23 221', 'tanggal_masuk' => '01/07/2023'],
+            'FANJI SULISTIO' => ['nip' => '01 21 217', 'tanggal_masuk' => '01/01/2021'],
+            'YORI KARSONO' => ['nip' => '01 24 225', 'tanggal_masuk' => '01/01/2024'],
+            'AEF PUJI' => ['nip' => '01 24 227', 'tanggal_masuk' => '01/01/2024'],
+            'GIBRAL THORIQ' => ['nip' => '01 24 229', 'tanggal_masuk' => '01/01/2024'],
+        ];
 
         // Data yang Anda berikan, dalam format string multi-baris
         $rawData = "SRI RAHAYU D. S.Sos.	D1	K	1	KABAG	HUBLANG	PUSAT	1	3.903.130	 8.288.144 	HUBLANG	HUBLANGPUSAT	24	 4.488.600 	08-02-1974	1	1	 8.108.600 		700000	100%	700000
@@ -199,8 +333,36 @@ GIBRAL THORIQ	B1	K	1	STAF	OPERATOR	JATITUJUH	11	1.628.306	 3.067.454 	PENGOLAHAN
             $tanggalLahirRaw = trim($parts[14]); // Kolom Tanggal Lahir
 
             // --- Transformasi Data ---
-            // 1. Nomor Induk: Dibuat secara berurutan
-            $nomorInduk = 'NIP' . str_pad($nipCounter++, 4, '0', STR_PAD_LEFT);
+// 1. Nomor Induk: Ambil dari data yang disediakan
+            $nomorInduk = null;
+            $tanggalMasuk = null;
+
+            // Cari data NIP dan Tanggal Masuk berdasarkan nama pegawai
+            if (isset($nipAndEntryDateData[$nama])) {
+                $nomorInduk = $nipAndEntryDateData[$nama]['nip'];
+                $tanggalMasukRaw = $nipAndEntryDateData[$nama]['tanggal_masuk'];
+                
+                // Format Tanggal Masuk ke Y-m-d
+                try {
+                    // Coba format DD/MM/YYYY
+                    $tanggalMasuk = Carbon::createFromFormat('d/m/Y', $tanggalMasukRaw)->format('Y-m-d');
+                } catch (\Exception $e) {
+                    try {
+                        // Coba format DD-MM-YYYY
+                        $tanggalMasuk = Carbon::createFromFormat('d-m-Y', $tanggalMasukRaw)->format('Y-m-d');
+                    } catch (\Exception $e) {
+                        // Jika kedua format gagal, gunakan tanggal default
+                        $tanggalMasuk = '1900-01-01';
+                        error_log("Format tanggal masuk tidak valid untuk '" . $nama . "': " . $tanggalMasukRaw);
+                    }
+                }
+            } else {
+                error_log("Data NIP dan Tanggal Masuk tidak ditemukan untuk pegawai: " . $nama);
+                // Jika tidak ditemukan, Anda bisa memilih untuk melewatkan entri ini
+                // atau memberikan nilai default/dummy
+                $nomorInduk = 'NIP_UNKNOWN'; // Default jika tidak ditemukan
+                $tanggalMasuk = '1900-01-01'; // Default jika tidak ditemukan
+            }
 
             // 2. Gender: Ditebak berdasarkan nama depan atau default 'Male'
             $firstName = explode(' ', $nama)[0];
@@ -247,9 +409,6 @@ GIBRAL THORIQ	B1	K	1	STAF	OPERATOR	JATITUJUH	11	1.628.306	 3.067.454 	PENGOLAHAN
                     }
                 }
             }
-
-            // 6. Tanggal Masuk: Default '2020-01-01' (tidak ada di data mentah)
-            $tanggalMasuk = '2020-01-01';
 
             // 7. Masa Kerja: Dihitung dari tanggal_masuk hingga tanggal saat ini
             $masaKerja = 0;

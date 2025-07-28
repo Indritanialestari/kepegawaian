@@ -50,7 +50,7 @@ class PegawaiController extends Controller
         $jumlahAktif = (clone $query)->where('status', 'Aktif')->count();
         $jumlahNonAktif = (clone $query)->where('status', 'Tidak Aktif')->count();
 
-        $pegawais = $query->paginate(5)->withQueryString();
+        $pegawais = $query->paginate(10)->withQueryString();
 
         // --- Variabel untuk dropdown (fixed list atau distinct dari DB untuk yang lain) ---
         $genders = Pegawai::select('gender')->distinct()->pluck('gender'); // Tetap distinct
@@ -118,7 +118,7 @@ class PegawaiController extends Controller
             'jabatan' => 'required|string|max:100', // Akan divalidasi dengan nilai yang ada di daftar fixed
             'bagian' => 'required|string|max:100',  // Akan divalidasi dengan nilai yang ada di daftar fixed
             'unit_kerja' => 'required|string|max:100',// Akan divalidasi dengan nilai yang ada di daftar fixed
-            'pendidikan' => 'required|string|max:100',
+            'pendidikan' => 'nullable|string|max:100', // <-- UBAH DI SINI
             'klasifikasi' => 'required|string|max:100',// Akan divalidasi dengan nilai yang ada di daftar fixed
             'keluarga_status' => 'required|string|max:100',
             'keluarga_anak' => 'required|string|max:100',
@@ -177,7 +177,7 @@ class PegawaiController extends Controller
             'jabatan' => 'required|string|max:100',
             'bagian' => 'required|string|max:100',
             'unit_kerja' => 'required|string|max:100',
-            'pendidikan' => 'required|string|max:100',
+            'pendidikan' => 'nullable|string|max:100', // <-- UBAH DI SINI
             'klasifikasi' => 'required|string|max:100',
             'keluarga_status' => 'required|string|max:100',
             'keluarga_anak' => 'required|string|max:100',
