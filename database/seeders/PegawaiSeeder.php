@@ -133,7 +133,7 @@ $nipAndEntryDateData = [
     'PRASETYO ADHIUTAMA' => ['nip' => '01 24 223', 'tanggal_masuk' => '01/01/2024'],
     'DEVI VIAN NURVIANTI, S.E.' => ['nip' => '07 20 195', 'tanggal_masuk' => '01/07/2020'],
     'ABIZAR YANUAR ADZANU' => ['nip' => '01 24 228', 'tanggal_masuk' => '01/01/2024'],
-    'ALDY DWICAHYA, S.E' => ['nip' => '07 23 219', 'tanggal_masuk' => '10/01/1994'],
+    'ALDY DWICAHYA, S.E' => ['nip' => '07 23 219', 'tanggal_masuk' => '01/07/2023'],
     'BUBIN ALBAR' => ['nip' => '07 20 190', 'tanggal_masuk' => '01/07/2020'],
     'PEDRAG MEGATAUFIQ RAHMAN' => ['nip' => '07 20 206', 'tanggal_masuk' => '01/07/2020'],
     'PANJI KAMALLUDIN R SALOE, S.H.' => ['nip' => '07 18 182', 'tanggal_masuk' => '01/07/2018'],

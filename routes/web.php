@@ -1,8 +1,46 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PegawaiController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KaryawanTetapController;
+use App\Http\Controllers\KaryawanKontrakController;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Di sini Anda dapat mendaftarkan rute web untuk aplikasi Anda. Rute-rute ini
+| dimuat oleh RouteServiceProvider dalam sebuah grup yang
+| berisi grup middleware "web". Sekarang buatlah sesuatu yang hebat!
+|
+*/
+
+// Rute untuk halaman utama (root URL)
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// --- Rute untuk Karyawan Tetap ---
+// Menggunakan resource route untuk CRUD yang lebih ringkas
+Route::resource('karyawan-tetap', KaryawanTetapController::class)->except(['show']);
+
+// Rute khusus untuk bulk delete dan PDF
+Route::delete('/karyawan-tetap/bulk-delete', [KaryawanTetapController::class, 'destroyBulk'])->name('karyawan-tetap.destroy.bulk');
+Route::get('/karyawan-tetap/preview-pdf', [KaryawanTetapController::class, 'previewPdf'])->name('karyawan-tetap.previewPdf');
+Route::get('/karyawan-tetap/export', [KaryawanTetapController::class, 'exportPdf'])->name('karyawan-tetap.exportPdf');
+
+
+// --- Rute untuk Karyawan Kontrak ---
+// Menggunakan resource route untuk CRUD yang lebih ringkas
+Route::resource('karyawan-kontrak', KaryawanKontrakController::class)->except(['show']);
+
+// Rute khusus untuk bulk delete dan PDF
+Route::delete('/karyawan-kontrak/bulk-delete', [KaryawanKontrakController::class, 'destroyBulk'])->name('karyawan-kontrak.destroy.bulk');
+Route::get('/karyawan-kontrak/preview-pdf', [KaryawanKontrakController::class, 'previewPdf'])->name('karyawan-kontrak.previewPdf');
+Route::get('/karyawan-kontrak/export', [KaryawanKontrakController::class, 'exportPdf'])->name('karyawan-kontrak.exportPdf');
+
+
+// --- Rute Otentikasi (tetap sama) ---
 // Halaman login
 Route::get('/login', function () {
     return view('login');
@@ -15,32 +53,6 @@ Route::post('/login', function () {
 
 // Proses logout
 Route::post('/logout', function () {
+    Auth::logout();
     return redirect()->route('login');
 })->name('logout');
-
-// Halaman utama menampilkan data pegawai
-Route::get('/', [PegawaiController::class, 'index'])->name('home');
-
-// Halaman tambah data
-Route::get('/tambah', [PegawaiController::class, 'create'])->name('tambah');
-
-// Simpan data pegawai
-Route::post('/tambah', [PegawaiController::class, 'store'])->name('pegawai.store');
-
-// Hapus satu data
-Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
-
-// Hapus banyak data sekaligus
-Route::delete('/pegawai', [PegawaiController::class, 'destroyBulk'])->name('pegawai.destroy.bulk');
-
-// Halaman edit data (form dengan data terisi)
-Route::get('/edit/{id}', [PegawaiController::class, 'edit'])->name('pegawai.edit');
-
-// Proses update data
-Route::post('/update/{id}', [PegawaiController::class, 'update'])->name('pegawai.update');
-
-Route::get('/pegawai/preview-pdf', [PegawaiController::class, 'previewPdf'])->name('pegawai.previewPdf');
-
-// Proses eksport ke PDF (setelah di-review)
-Route::get('/pegawai/export', [PegawaiController::class, 'exportPdf'])->name('pegawai.exportPdf');
-
