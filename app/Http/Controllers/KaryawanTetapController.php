@@ -23,23 +23,10 @@ class KaryawanTetapController extends Controller
         'Kaunit', 'Keu', 'Lahta', 'MSDM', 'Operator', 'Pemasaran & Informasi',
         'Pembukuan', 'Pemeliharaan', 'Pengaduan & Tagihan', 'Pengolahan Data',
         'Perencanaan', 'Produksi', 'Rutin Teknik', 'Koordinator Satpam Pusat',
-        'Satpam', 'Staf Baca Meter', 'Staf Distribusi & Penyambungan', 'Staf Kasir',
-        'Staf Pembukuan & Keu', 'Staf Produksi Pusat', 'Staf Produksi (Operator)',
-        'Staf IKK Dawuan', 'Staf Produksi', 'Staf Umum',
-        'Staf Pelaksana Unit: Sukaraja', // Tambahan dari data Anda
-        'Pembaca Meter Cab. Talaga', // Tambahan dari data Anda
-        'Pembukuan Cab. Kadipaten', // Tambahan dari data Anda
-        'Staf Pembaca Meter Cab. Kadipaten', // Tambahan dari data Anda
-        'Staf Pembaca Meter Unit Sukaraja', // Tambahan dari data Anda
-        'Staf Pembaca Meter Unit Rajagaluh', // Tambahan dari data Anda
-        'Staf Pembaca Meter Unit Cigasong', // Tambahan dari data Anda
-        'Pembaca Meter Jatitujuh', // Tambahan dari data Anda
-        'Baca Meter Sukahaji', // Tambahan dari data Anda
-        'Pembaca Meter Talaga', // Tambahan dari data Anda
-        'Staf Operator Kdp', // Tambahan dari data Anda
-        'Pembaca Meter Unit Panyingkiran', // Tambahan dari data Anda
-        'Staf Adm Cab. Mjl', // Tambahan dari data Anda
-        'Office Boy', // Tambahan dari data Anda
+        'Satpam', 'Staf Baca Meter','Pembaca Meter','Staf Distribusi & Penyambungan', 'Staf Kasir',
+        'Staf Pembukuan & Keu', 'Staf Produksi Pusat', 'Staf Produksi (Operator)','Staf Operator', 'Staf Adm',
+        'Staf IKK Dawuan', 'Staf Produksi', 'Staf Umum', 'Staf Pelaksana',
+        'Office Boy',
     ];
     // ======================================
 

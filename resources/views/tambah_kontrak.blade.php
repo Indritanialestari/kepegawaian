@@ -111,18 +111,53 @@
                     @error('keluarga_anak')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
-                <div>
-                    <label for="masa_kerja" class="block text-sm font-medium text-gray-700">Masa Kerja (contoh: 5 tahun 3 bulan)</label>
-                    <input type="text" name="masa_kerja" id="masa_kerja" value="{{ old('masa_kerja') }}"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                    @error('masa_kerja')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                {{-- Fields khusus Karyawan Tetap --}}
+                <div id="tetap-fields" class="grid grid-cols-1 md:grid-cols-2 gap-4 col-span-full">
+                    <div>
+                        <label for="tanggal_masuk" class="block text-sm font-medium text-gray-700">Tanggal Masuk</label>
+                        <input type="date" name="tanggal_masuk" id="tanggal_masuk" value="{{ old('tanggal_masuk') }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        @error('tanggal_masuk')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    </div>
+
+                    <div>
+                        <label for="golongan" class="block text-sm font-medium text-gray-700">Golongan</label>
+                        <select name="golongan" id="golongan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option value="">Pilih Golongan</option>
+                            @foreach($golonganOptions as $option)
+                                <option value="{{ $option }}" {{ old('golongan') == $option ? 'selected' : '' }}>{{ $option }}</option>
+                            @endforeach
+                        </select>
+                        @error('golongan')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    </div>
+
+                    <div>
+                        <label for="klasifikasi" class="block text-sm font-medium text-gray-700">Klasifikasi</label>
+                        <select name="klasifikasi" id="klasifikasi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option value="">Pilih Klasifikasi</option>
+                            @foreach($klasifikasiOptions as $option)
+                                <option value="{{ $option }}" {{ old('klasifikasi') == $option ? 'selected' : '' }}>{{ $option }}</option>
+                            @endforeach
+                        </select>
+                        @error('klasifikasi')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    </div>
                 </div>
 
-                <div>
-                    <label for="tanggal_perhitungan" class="block text-sm font-medium text-gray-700">Tanggal Perhitungan</label>
-                    <input type="date" name="tanggal_perhitungan" id="tanggal_perhitungan" value="{{ old('tanggal_perhitungan') }}"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                    @error('tanggal_perhitungan')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                {{-- Fields khusus Karyawan Kontrak --}}
+                <div id="kontrak-fields" class="grid grid-cols-1 md:grid-cols-2 gap-4 col-span-full">
+                    <div>
+                        <label for="masa_kerja" class="block text-sm font-medium text-gray-700">Masa Kerja (contoh: 5 tahun 3 bulan)</label>
+                        <input type="text" name="masa_kerja" id="masa_kerja" value="{{ old('masa_kerja') }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        @error('masa_kerja')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    </div>
+
+                    <div>
+                        <label for="tanggal_perhitungan" class="block text-sm font-medium text-gray-700">Tanggal Perhitungan</label>
+                        <input type="date" name="tanggal_perhitungan" id="tanggal_perhitungan" value="{{ old('tanggal_perhitungan') }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        @error('tanggal_perhitungan')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                    </div>
                 </div>
 
                 <div>
@@ -153,4 +188,29 @@
             </div>
         </form>
     </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const jabatanSelect = document.getElementById('jabatan');
+        const tetapFields = document.getElementById('tetap-fields');
+        const kontrakFields = document.getElementById('kontrak-fields');
+
+        function toggleFields() {
+            if (jabatanSelect.value === 'Kontrak') {
+                tetapFields.style.display = 'none';
+                kontrakFields.style.display = 'grid';
+            } else {
+                tetapFields.style.display = 'grid';
+                kontrakFields.style.display = 'none';
+            }
+        }
+
+        // Panggil saat halaman dimuat
+        toggleFields();
+
+        // Panggil saat pilihan jabatan berubah
+        jabatanSelect.addEventListener('change', toggleFields);
+    });
+</script>
+
 @endsection
