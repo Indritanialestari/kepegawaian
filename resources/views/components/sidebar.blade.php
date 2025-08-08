@@ -31,8 +31,8 @@
         {{-- Anda bisa menambahkan link lain di sini --}}
     </nav>
 
-    <div class="mt-auto text-center text-blue-300 text-sm">
+    <!-- <div class="mt-auto text-center text-blue-300 text-sm">
         <p>&copy; 2025 Aplikasi Karyawan</p>
         <p>Versi 1.0</p>
-    </div>
+    </div> -->
 </div>
