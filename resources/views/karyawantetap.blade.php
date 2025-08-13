@@ -57,6 +57,14 @@
                        min="1">
             </div>
 
+            <div>
+                <label for="tahun_kelipatan" class="block text-sm font-medium text-gray-700">Di Tahun</label>
+                {{-- MENGHAPUS VALIDASI `max` DI SINI UNTUK MENGIZINKAN TAHUN BERIKUTNYA --}}
+                <input type="number" name="tahun_kelipatan" id="tahun_kelipatan" value="{{ request('tahun_kelipatan') }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                       min="1900">
+            </div>
+
             {{-- Dropdown Fixed Options --}}
             <div>
                 <label for="golongan" class="block text-sm font-medium text-gray-700">Golongan</label>
@@ -200,7 +208,15 @@
                         <td class="px-6 py-4">{{ $pegawai->keluarga_status }}</td>
                         <td class="px-6 py-4 text-center">{{ $pegawai->keluarga_anak }}</td>
                         <td class="px-6 py-4">{{ \Carbon\Carbon::parse($pegawai->tanggal_masuk)->format('Y-m-d') }}</td>
-                        <td class="px-6 py-4 text-center">{{ $pegawai->masa_kerja }} tahun</td>
+                        {{-- --- PERBAIKAN TAMPILAN MASA KERJA DI SINI --- --}}
+<td class="px-6 py-4 text-center">
+    @if($pegawai->tanggal_masuk)
+        {{ \Carbon\Carbon::now()->year - \Carbon\Carbon::parse($pegawai->tanggal_masuk)->year }} tahun
+    @else
+        -
+    @endif
+</td>
+                        {{-- --- AKHIR PERBAIKAN --- --}}
                         <td class="px-6 py-4 text-center">{{ $pegawai->golongan }}</td>
                         <td class="px-6 py-4 text-right">Rp {{ number_format($pegawai->gaji, 0, ',', '.') }}</td>
                         <td class="px-6 py-4">{{ $pegawai->status }}</td>
@@ -243,8 +259,8 @@
             if (bulkDeleteForm) {
                 bulkDeleteForm.addEventListener('submit', function(event) {
                     const selectedIds = Array.from(itemCheckboxes)
-                                            .filter(cb => cb.checked)
-                                            .map(cb => cb.value);
+                                             .filter(cb => cb.checked)
+                                             .map(cb => cb.value);
 
                     if (selectedIds.length === 0) {
                         alert('Pilih setidaknya satu data untuk dihapus.');
